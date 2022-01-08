@@ -7,13 +7,18 @@ import AddQuestionModal from './AddQuestionModal.jsx';
 import AddAnswerModal from './AddAnswerModal.jsx';
 import { QASectionContainer, AddQuestionButton } from '../styles/QA/QASection.styled';
 
-const QASection = () => {
+const QASection = ({productId}) => {
   const [questions, setQuestions] = useState([]); // keep track of the questions
   const [searchResults, setSearchResults] = useState([]); // keep track of searchResults
-  const { search, toggleModal, reload, question_id, showQuestionModal, showAnswerModal } = useContext(QAContext);
+  const { search, product_id, setProductId, toggleModal, reload, question_id, showQuestionModal, showAnswerModal } = useContext(QAContext);
 
   useEffect(() => {
-    getAllQuestions(39334)
+    setProductId(productId);
+  }, [productId])
+
+  useEffect(() => {
+    console.log(product_id)
+    getAllQuestions(productId)
       .then(results => {
         setQuestions(results.data.results); // Already sorted by Question Helpfulness
       })

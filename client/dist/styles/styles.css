@@ -3,7 +3,7 @@
 
 * {
   border-color: hsl(33, 22%, 45%);
-  color: hsla(99, 49%, 11%, 1);
+  color: #374032;
   font-family: 'Zen Antique Soft', serif;
   width: auto;
 }
@@ -15,4 +15,18 @@
 hr {
   color: hsla(99, 49%, 11%, 1);
   opacity: 50%;
+}
+
+figure {
+  background-repeat: no-repeat;
+}
+
+.expanded-view:hover img {
+  opacity: 0;
+}
+
+.expanded-thumbnail img {
+  display: block;
+  width: 100%;
+  pointer-events: none;
 }

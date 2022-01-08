@@ -58,12 +58,11 @@ export const ModalFooter = styled.div`
 
 export const ModalSubmit = styled.button`
   border: none;
-  background: aquamarine;
-  /* box-shadow: 0 0 grey; */
   border-radius: 10px;
+  background: aquamarine;
   font-size: 1rem;
   cursor: pointer;
-  padding: 0px 20px 20px 0px;
+  padding: 5px 10px;
 
   &:hover {
     transform: scale(1.1);
@@ -94,6 +93,7 @@ export const Overlay = styled.div`
   position: fixed;
   top: 0;
   left: 0;
+  z-index: 1;
   width: 100vw;
   height: 100vh;
   background-color: rgba(0,0,0,0.4);

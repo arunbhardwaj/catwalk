@@ -10,7 +10,7 @@ export const Figure = styled.figure`
 
 export const Image = styled.img`
   display: block;
-  max-width: auto;
-  max-height: auto;
+  width: 100%;
+  height: 100%;
   pointer-events: none;
 `

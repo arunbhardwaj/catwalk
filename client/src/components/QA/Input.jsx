@@ -3,12 +3,16 @@ import {
   InputContainer,
   LabelStyled,
   InputStyled,
-} from '../styles/QA/AddQuestionModal.styled';
+  QuestionInput,
+  UsernameInput,
+  EmailInput
+} from '../styles/QA/Input.styled';
 
-const Input = props => {
+const GenericInput = props => {
   return (
     <InputContainer>
       <LabelStyled htmlFor={props.htmlFor}>{props.label}</LabelStyled>
+      {props.children}
       <InputStyled
         required={props.required}
         id={props.id}
@@ -22,4 +26,4 @@ const Input = props => {
   );
 };
 
-export default Input;
+export default GenericInput;

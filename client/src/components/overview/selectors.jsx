@@ -9,12 +9,18 @@ import QuantitySelector from './quantitySelector.jsx';
 const DEFAULT_QUANTITIES = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
 
 const Selectors = (props) => {
-  const [currentStyle, setCurrentStyle] = useState('')
+  const [currentStyle, setCurrentStyle] = useState(props.styles[0])
   const [availableSizes, setAvailableSizes] = useState([])
   const [currentSize, setCurrentSize] = useState('')
   const [availableQuantities, setAvailableQuantities] = useState([1])
   const [currentQuantity, setCurrentQuantity] = useState(1)
   const [outOfStock, setOutOfStock] = useState(false)
+
+  useEffect( () => {
+    setCurrentStyle(props.styles[0]);
+    retrieveSizesByStyle(props.styles[0].style_id);
+    setCurrentSize('Select a size');
+  }, [currentStyle]);
 
   // On style select, gets all the sizes based off of the style's id
   const retrieveSizesByStyle = (styleId) => {
@@ -29,7 +35,8 @@ const Selectors = (props) => {
       }
     }
 
-    setAvailableSizes(sizes)
+    setAvailableSizes(sizes);
+    setCurrentSize(sizes[0]);
   }
 
   // On size select, retrieves quantities for that size
@@ -75,7 +82,7 @@ const Selectors = (props) => {
 
   // On change, updates state to reflect chosen size and hides 'Choose a size' error msg
   const handleSizeSelect = (e) => {
-    document.querySelector('.size-error-msg').style.visibility = 'hidden';
+    document.querySelector('.size-selection').style.color = '#374032';
     retrieveQuantitiesBySize( e.target.value );
     setCurrentSize(e.target.value);
   }
@@ -88,8 +95,8 @@ const Selectors = (props) => {
   // On click, add current state of style to cart
   // If user has not selected a size, will render an error msg above the size dropdown menu
   const handleAddToCart = (e) => {
-    if (!currentSize.length || currentSize === 'Please select a size') {
-      document.querySelector('.size-error-msg').style.visibility = 'visible';
+    if (currentSize.length > 3) {
+      document.querySelector('.size-selection').style.color = 'red';
     } else {
       const item = {};
       for (let i = 0; i < props.styles.length; i++) {
@@ -113,7 +120,7 @@ const Selectors = (props) => {
   return (
     <div className='selectors'>
       <div className='style-selector'>
-        <b>STYLE</b> > <em>{currentStyle ? currentStyle.name : 'Select a style'}</em>
+        <b>STYLE</b> > <em>{ currentStyle.name }</em>
         <br></br>
         <StyleSelector styles={props.styles} handleStyleSelect={handleStyleSelect} />
       </div>
@@ -121,16 +128,12 @@ const Selectors = (props) => {
       <div className='size-selector'>
         <div>
           <br></br>
-          <b>SIZE</b> > <em>{currentSize ? currentSize : null }</em>
+          <b>SIZE</b> >
           <span
-            className='size-error-msg'
-            style={{
-              visibility: 'hidden',
-              color: 'red',
-              fontStyle: 'italic'
-            }}>
-              Please select a size
-            </span>
+            className='size-selection'
+            style={{ fontStyle: 'italic' }}>
+            {currentSize}
+          </span>
         </div>
         <SizeSelector
           currentSize={currentSize}

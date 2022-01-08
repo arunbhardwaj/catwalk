@@ -6,7 +6,7 @@ import React from 'react';
  */
 const initialState = {
   search: '',
-  product_id: 39334,
+  product_id: -1,
   question_id: -1,
   showQuestionModal: false,
   showAnswerModal: false,

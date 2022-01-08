@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useRef } from 'react';
 import { StyledSpan } from '../styles/QA/Helpful.styled';
 import { QAContext } from './QAContext.jsx';
 import {
@@ -7,10 +7,11 @@ import {
 } from '../../request.js';
 
 // TODO: all helpful components are re-rendering even when only one is clicked, (bc of the useEffect api call most likely)
-const Helpful = ({ count, id, type }) => {
+const Helpful = React.memo(({ count, id, type }) => {
   // const [localCount, setLocalCount] = useState(count);
   const [wasIncremented, setWasIncremented] = useState(false);
   const { triggerReload } = useContext(QAContext);
+  const renders = useRef(0)
 
   const handleOnClick = e => {
     if (!wasIncremented) {
@@ -36,10 +37,11 @@ const Helpful = ({ count, id, type }) => {
 
   return (
     <span>
-      Helpful? <StyledSpan onClick={e => handleOnClick(e)}>Yes</StyledSpan> (
+      Helpful? <StyledSpan onClick={e => {handleOnClick(e); console.log(id, 'was clicked.')}}>Yes</StyledSpan> (
       {count})
+      {console.log("I", id, "have rendered", renders.current++, "times.")}
     </span>
   );
-};
+});
 
 export default Helpful;

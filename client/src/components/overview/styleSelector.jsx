@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import StyleThumbnail from './styleThumbnail.jsx';
 
 const StyleSelector = ( {styles, handleStyleSelect} ) => {
-  const [selected, setSelected] = useState(-1);
+  const [selected, setSelected] = useState(styles[0].style_id);
 
   return (
     <div>

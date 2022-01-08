@@ -50,28 +50,19 @@ function ModalForm({
   return (
     <Overlay>
       <ModalWindow ref={modalRef}>
-        {type !== 'overview' && ( //For having overview use modal too.
-          <>
-            <ModalHeader>
-              <h3>{headerText || 'Insert Header Text Here'}</h3>
-              <ModalExit tabIndex="0" onClick={() => toggleModal()}>
-                &times;
-              </ModalExit>
-            </ModalHeader>
-            <Line />
-            <form onSubmit={handleSubmitOnClick}>
-              {children}
-              <ModalFooter>
-                <ModalSubmit
-                  type="submit"
-                  onClick={e => handleSubmitOnClick(e)}
-                >
-                  Submit
-                </ModalSubmit>
-              </ModalFooter>
-            </form>
-          </>
-        )}
+        <ModalHeader>
+          { type !== 'overview' ? headerText : null }
+          <ModalExit onClick={() => toggleModal()}>&times;</ModalExit>
+        </ModalHeader>
+        <Line />
+        { children }
+        {type !== 'overview' &&
+          <ModalFooter>
+            <ModalSubmit type="submit" onClick={(e) => handleSubmitOnClick(e)}>
+              Submit
+            </ModalSubmit>
+          </ModalFooter>
+        }
       </ModalWindow>
     </Overlay>
   );
